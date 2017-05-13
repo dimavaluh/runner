@@ -114,4 +114,18 @@ function calcSpeed(prev, next) {
 
 };
 
+var pressed = [];
+var secredCode = 'hesoyam';
+
+window.addEventListener('keyup', function(e) {
+
+    pressed.push(e.key);
+    pressed.splice(-secredCode.length - 1, pressed.length - secredCode.length);
+
+    if(pressed.join('').includes(secredCode)) {
+       return document.getElementById('CJ').style.display = "block";
+    }
+});
+
+
 
