@@ -1,10 +1,30 @@
 'use strict';
+var clicks = 0;
+
+var diffEasy = document.getElementById('diffEasy');
+var diffMedium = document.getElementById('diffMedium');
+var diffHard = document.getElementById('diffHard');
+
+var speedModifier = 0.5;
+
+diffEasy.addEventListener("click", easySpeed);
+diffMedium.addEventListener("click", mediumSpeed);
+diffHard.addEventListener("click", hardSpeed);
+
+function easySpeed () {
+    return speedModifier = 0.1;
+}
+function mediumSpeed () {
+    return speedModifier = 0.6;
+}
+function hardSpeed () {
+    return speedModifier = 2;
+}
 
 var runner = document.getElementById('runner');
 var x;
 var y;
 var newXY;
-var color;
 
 function position () {
     x = "top: " + Math.floor(Math.random() * 500) + "px;";
@@ -15,26 +35,30 @@ function position () {
 }
 position();
 
-console.log(newXY);
-
-
-
 runner.style = newXY;
 
 function onClick () {
-    runner.style.background = "red";
+    runner.style.background = "#FF6D66";
     runner.innerHTML = "Happy now?";
+    document.getElementById('amountOfClicks').innerHTML = clicks;
+    clicks++;
+    if (clicks > 10) {
+        clicks = 0;
+        runner.style.background = "#FBFF80";
+        runner.innerHTML = "You Won!";
+        return speedModifier = 0.0001;
+    }
 }
 
 runner.onclick = onClick;
 
 function mouseOver () {
     runner.style.background = "#92d0ff";
-    runner.innerHTML = "Fuck off!"
+    runner.innerHTML = "Fuck off!";
 }
 function mouseOut () {
-    runner.style.background = "#36ff4c";
-    runner.innerHTML = "You won't click me!"
+    runner.style.background = "#94ffaf";
+    runner.innerHTML = "You won't click me!";
 }
 
 runner.onmouseover = mouseOver;
@@ -74,6 +98,7 @@ function animateDiv() {
 
 };
 
+
 function calcSpeed(prev, next) {
 
     var x = Math.abs(prev[1] - next[1]);
@@ -81,10 +106,12 @@ function calcSpeed(prev, next) {
 
     var greatest = x > y ? x : y;
 
-    var speedModifier = 0.5;
+    /*speedModifier = 0.5;*/
 
     var speed = Math.ceil(greatest / speedModifier);
 
     return speed;
 
-}
+};
+
+
